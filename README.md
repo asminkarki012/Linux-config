@@ -8,3 +8,8 @@ wget -P ~/.local/share/fonts https://github.com/ryanoasis/nerd-fonts/releases/do
 && rm JetBrainsMono.zip \
 && fc-cache -fv
 ```
+
+### NVIM dependency LUA ROCK 
+```
+dnf: sudo dnf install compat-lua-devel-5.1.5
+```
