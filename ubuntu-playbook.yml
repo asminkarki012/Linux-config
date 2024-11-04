@@ -39,7 +39,7 @@
 
     - name: Download Stremio installation script
       get_url:
-        url: "insert your stremio.iubuntu.sh raw url here"
+        url: "https://raw.githubusercontent.com/asminkarki012/Linux-config/refs/heads/main/install_stremio-ubuntu.sh"
         dest: /tmp/install_stremio.sh
         mode: '0755'
 
