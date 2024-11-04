@@ -9,13 +9,13 @@ sudo apt install ansible
 #### run check first
 
 ```
-sudo ansible-playground ubuntu-playbook.yml --check
+sudo ansible-playground ubuntu-ansible-playbook.yml --check
 ```
 
-#### execute ansible playbook make sure to run on
+#### execute ansible playbook
 
 ```
-sudo ansible-playground ubuntu-playbook.yml
+sudo ansible-playground ubuntu-ansible-playbook.yml
 ```
 
 ### NERD font for lazyvim
