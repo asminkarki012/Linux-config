@@ -1,0 +1,49 @@
+---
+- name: setting up ubuntu on localhost
+  hosts: localhost
+  become: true
+  connection: local
+
+  vars:
+    apt_packages_to_install:
+      - neovim
+      - tmux
+      - copyq 
+      - git
+      - curl 
+      - gnome-tweaks
+      - htop
+      - vlc
+      - python3
+      - python3-pip
+      - gparted
+      - nodejs
+      - npm
+      - neofetch
+      - build-essential
+      - docker
+      - net-tools
+      - grub-customizer
+      
+
+  tasks:
+    - name: Update apt package list
+      apt:
+        update_cache: yes
+
+    - name: Install apt multiple packages
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop: "{{ apt_packages_to_install }}"
+
+    - name: Download Stremio installation script
+      get_url:
+        url: "insert your stremio.iubuntu.sh raw url here"
+        dest: /tmp/install_stremio.sh
+        mode: '0755'
+
+    - name: Run Stremio installation script
+      command: /bin/bash /tmp/install_stremio.sh
+      args:
+        warn: false
