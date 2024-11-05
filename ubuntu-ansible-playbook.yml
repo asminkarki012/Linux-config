@@ -6,11 +6,10 @@
 
   vars:
     apt_packages_to_install:
-      - neovim
       - tmux
-      - copyq 
+      - copyq
       - git
-      - curl 
+      - curl
       - gnome-tweaks
       - htop
       - vlc
@@ -23,8 +22,10 @@
       - build-essential
       - docker
       - net-tools
-      - grub-customizer
-      
+
+    snap_packages_to_install:
+      - joplin-desktop
+      - nvim --edge --classic
 
   tasks:
     - name: Update apt package list
@@ -37,11 +38,22 @@
         state: present
       loop: "{{ apt_packages_to_install }}"
 
+    - name: Ensure Snap is installed
+      apt:
+        name: snapd
+        state: present
+
+    - name: Install snap packages
+      shell: "snap install {{ item }}"
+      loop: "{{ snap_packages_to_install }}"
+      loop_control:
+        label: "{{ item }}"
+
     - name: Download Stremio installation script
       get_url:
         url: "https://raw.githubusercontent.com/asminkarki012/Linux-config/refs/heads/main/install_stremio-ubuntu.sh"
         dest: /tmp/install_stremio.sh
-        mode: '0755'
+        mode: "0755"
 
     - name: Run Stremio installation script
       command: /bin/bash /tmp/install_stremio.sh
