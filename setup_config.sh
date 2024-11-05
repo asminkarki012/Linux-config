@@ -56,6 +56,7 @@ setup_tmux_config() {
       return 1
     }
   fi
+
   cp -f "$REPO_DIR/.tmux.conf" "$TMUX_DIR" || {
     echo "Error: Could not copy .tmux.conf to $TMUX_DIR" >&2
     return 1
@@ -67,13 +68,12 @@ setup_tmux_config() {
       echo "Error: Could not clone tpm repository" >&2
       return 1
     }
-  else
-    echo "plugins tpm already exists"
   fi
 
-  #execute tmux
-  echo "Executing tmux conf"
-  tmux source "$TMUX_DIR/.tmux.conf"
+  if ! grep -q 'alias tmux="tmux -f ~/.tmux/.tmux.conf"' ~/.bashrc; then
+    echo 'alias tmux="tmux -f ~/.tmux/.tmux.conf"' >>~/.bashrc
+    echo "Alias for tmux added to .bashrc"
+  fi
 
 }
 # Main function
