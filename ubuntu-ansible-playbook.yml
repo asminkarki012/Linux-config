@@ -20,7 +20,7 @@
       - npm
       - neofetch
       - build-essential
-      - docker
+      - docker.io
       - net-tools
       - timeshift
 
