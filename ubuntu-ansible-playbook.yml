@@ -27,6 +27,7 @@
     snap_packages_to_install:
       - joplin-desktop
       - nvim --edge --classic
+      - code
 
   tasks:
     - name: Update apt package list
