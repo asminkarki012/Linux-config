@@ -22,6 +22,7 @@
       - build-essential
       - docker
       - net-tools
+      - timeshift
 
     snap_packages_to_install:
       - joplin-desktop
