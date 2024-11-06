@@ -8,4 +8,9 @@ vim.keymap.set(
   { noremap = true, silent = true, desc = "Resume" }
 )
 
-
+vim.keymap.set(
+  "i",          
+  "jk",         
+  "<Esc>",      
+  { noremap = true, silent = true, desc = "Map jk to Esc in insert mode" }
+)
