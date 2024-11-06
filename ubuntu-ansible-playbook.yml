@@ -23,6 +23,7 @@
       - docker.io
       - net-tools
       - timeshift
+      - ripgrep
 
     snap_packages_to_install:
       - joplin-desktop
