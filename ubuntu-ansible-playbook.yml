@@ -24,6 +24,7 @@
       - net-tools
       - timeshift
       - ripgrep
+      - xclip
 
     snap_packages_to_install:
       - joplin-desktop
