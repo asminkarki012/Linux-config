@@ -25,6 +25,7 @@
       - timeshift
       - ripgrep
       - xclip
+      - fzf
 
     snap_packages_to_install:
       - joplin-desktop
