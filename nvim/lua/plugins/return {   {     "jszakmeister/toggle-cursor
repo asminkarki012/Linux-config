@@ -1,8 +1,0 @@
-return {
-  {
-    "jszakmeister/vim-togglecursor",
-    config = function()
-      -- Any specific configurations for vim-togglecursor can go here
-    end,
-  },
-}
