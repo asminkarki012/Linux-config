@@ -59,8 +59,8 @@ setup_tmux_config() {
     }
   fi
 
-  cp -f "$REPO_DIR/.tmux.conf" "$TMUX_DIR" || {
-    echo "Error: Could not copy .tmux.conf to $TMUX_DIR" >&2
+  cp -f "$REPO_DIR/.tmux.conf" "$HOME" || {
+    echo "Error: Could not copy .tmux.conf to $HOME" >&2
     return 1
   }
 
@@ -72,10 +72,10 @@ setup_tmux_config() {
     }
   fi
 
-  if ! grep -q 'alias tmux="tmux -f ~/.tmux/.tmux.conf"' ~/.bashrc; then
-    echo 'alias tmux="tmux -f ~/.tmux/.tmux.conf"' >>~/.bashrc
-    echo "Alias for tmux added to .bashrc"
-  fi
+  #if ! grep -q 'alias tmux="tmux -f ~/.tmux/.tmux.conf"' ~/.bashrc; then
+   # echo 'alias tmux="tmux -f ~/.tmux/.tmux.conf"' >>~/.bashrc
+    #echo "Alias for tmux added to .bashrc"
+  #fi
 
 }
 # Main function
