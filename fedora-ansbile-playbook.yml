@@ -21,6 +21,11 @@
       - fzf
       - xclip
       - darktable
+      - dnf-plugins-core        
+      - docker-ce               
+      - docker-ce-cli          
+      - containerd.io           
+      - docker-compose-plugin   
 
     flatpak_packages_to_install:
       - com.discordapp.Discord
@@ -87,3 +92,9 @@
       command: /bin/bash /tmp/install_stremio.sh
       args:
         warn: false
+        
+    - name: Enable and start Docker service
+      systemd:
+        name: docker
+        enabled: yes
+        state: started
