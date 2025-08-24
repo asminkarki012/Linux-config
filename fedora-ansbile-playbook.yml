@@ -1,0 +1,90 @@
+---
+- name: Setting up Fedora on localhost
+  hosts: localhost
+  become: true
+  connection: local
+
+  vars:
+    dnf_packages_to_install:
+      - btop
+      - gnome-extensions-app
+      - gnome-tweaks
+      - unzip
+      - unrar
+      - nmap
+      - gimp
+      - libreoffice
+      - qbittorrent
+      - fastfetch
+      - lynis
+      - lazygit
+      - neovim
+      - fzf
+      - xclip
+      - darktable
+
+    flatpak_packages_to_install:
+      - com.discordapp.Discord
+      - org.gnome.DejaDup
+      - org.onlyoffice.desktopeditors
+      - net.cozic.joplin_desktop
+      - io.missioncenter.MissionCenter
+
+    miniconda_installer_url: "https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh"
+    miniconda_install_path: "/opt/miniconda3"
+
+  tasks:
+    - name: Update dnf package list
+      dnf:
+        update_cache: yes
+
+    - name: Install dnf packages
+      dnf:
+        name: "{{ item }}"
+        state: present
+      loop: "{{ dnf_packages_to_install }}"
+
+    - name: Ensure flatpak is installed
+      dnf:
+        name: flatpak
+        state: present
+
+    - name: Add Flathub remote if not already added
+      command: flatpak remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+      args:
+        creates: /var/lib/flatpak/repo/flathub
+
+    - name: Install flatpak packages
+      flatpak:
+        name: "{{ item }}"
+        state: present
+        remote: flathub
+      loop: "{{ flatpak_packages_to_install }}"
+
+    - name: Download Miniconda installer
+      get_url:
+        url: "{{ miniconda_installer_url }}"
+        dest: /tmp/miniconda.sh
+        mode: "0755"
+
+    - name: Install Miniconda (if not already installed)
+      command: bash /tmp/miniconda.sh -b -p "{{ miniconda_install_path }}"
+      args:
+        creates: "{{ miniconda_install_path }}"
+
+    - name: Add Miniconda to PATH for all users
+      copy:
+        dest: /etc/profile.d/miniconda.sh
+        content: 'export PATH={{ miniconda_install_path }}/bin:$PATH'
+        mode: "0644"
+
+    - name: Download Stremio installation script
+      get_url:
+        url: "https://raw.githubusercontent.com/asminkarki012/Linux-config/refs/heads/main/install_stremio-fedora.sh"
+        dest: /tmp/install_stremio.sh
+        mode: "0755"
+
+    - name: Run Stremio installation script
+      command: /bin/bash /tmp/install_stremio.sh
+      args:
+        warn: false
