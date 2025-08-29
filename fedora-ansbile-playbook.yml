@@ -34,6 +34,7 @@
       - org.onlyoffice.desktopeditors
       - net.cozic.joplin_desktop
       - io.missioncenter.MissionCenter
+      - com.stremio.Stremio
 
     miniconda_installer_url: "https://repo.anaconda.com/miniconda/Miniconda3-latest-Linux-x86_64.sh"
     miniconda_install_path: "/opt/miniconda3"
@@ -82,17 +83,6 @@
         dest: /etc/profile.d/miniconda.sh
         content: 'export PATH={{ miniconda_install_path }}/bin:$PATH'
         mode: "0644"
-
-    - name: Download Stremio installation script
-      get_url:
-        url: "https://raw.githubusercontent.com/asminkarki012/Linux-config/refs/heads/main/install_stremio-fedora.sh"
-        dest: /tmp/install_stremio.sh
-        mode: "0755"
-
-    - name: Run Stremio installation script
-      command: /bin/bash /tmp/install_stremio.sh
-      args:
-        warn: false
         
     - name: Enable and start Docker service
       systemd:
